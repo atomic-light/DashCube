@@ -1,0 +1,83 @@
+body {
+  font-family: sans-serif;
+  padding: 20px;
+}
+
+#startText {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #444;
+}
+
+#game {
+  position: relative;
+  width: 600px;
+  height: 300px;
+  background: #cce;
+  overflow: hidden;
+  border: 2px solid #333;
+}
+
+#ground {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  background: #3c3;
+}
+
+#player {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: #e91e63;
+  left: 50px;
+  bottom: 50px;
+  transition: transform 0.3s ease;
+  transform-origin: center center;
+}
+
+#obstacle {
+  position: absolute;
+  width: 30px;
+  height: 55px;
+  background: #444;
+  bottom: 50px; 
+  left: 600px;
+}
+
+#coin {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: gold;
+  border-radius: 50%;
+  bottom: 120px;
+  left: 300px;
+}
+
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  pointer-events: none;
+  animation: fadeOut 0.4s ease forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    transform: translateX(0px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-20px) scale(0.3);
+    opacity: 0;
+  }
+}
+
+#player.dash {
+  box-shadow: 0 0 10px #fff;
+}
