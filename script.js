@@ -168,10 +168,24 @@ function createParticle(x, y) {
 }
 
 // 🎮 Steuerung
+let lastTap = 0;
+
 document.getElementById("game").addEventListener("touchstart", (e) => {
-  e.preventDefault(); 
+  e.preventDefault();
+
+  const currentTime = new Date().getTime();
+  const tapLength = currentTime - lastTap;
+
+  if (tapLength < 300 && tapLength > 0) {
+    // 👉 Double Tap erkannt → Dash
+    triggerDash();
+  } else {
+    // 👉 Single Tap → Springen
     handleJumpEvent();
-}, { passive: false }); 
+  }
+
+  lastTap = currentTime;
+}, { passive: false });
 
 document.getElementById("game").addEventListener("click", () => {
   handleJumpEvent();
@@ -226,6 +240,31 @@ document.addEventListener("keydown", (e) => {
     }, 300);
   }
 });
+
+function triggerDash() {
+  if (!isDashing && gameStarted && !gameOver) {
+    isDashing = true;
+    const originalSpeed = gameSpeed;
+    gameSpeed += 5;
+    player.style.transform = `scale(1.1) rotateZ(${rotation}deg)`;
+
+    const dashTrail = setInterval(() => {
+      const playerBox = player.getBoundingClientRect();
+      const gameBox = gameContainer.getBoundingClientRect();
+      const x = playerBox.left - gameBox.left - 5;
+      const y = playerBox.top - gameBox.top + playerBox.height / 2;
+      createParticle(x, y);
+    }, 30);
+
+    setTimeout(() => {
+      clearInterval(dashTrail);
+      gameSpeed = originalSpeed;
+      player.style.transform = `rotateZ(${rotation}deg)`;
+      isDashing = false;
+    }, 300);
+  }
+}
+
 
 // ⏱️ Spieltempo steigt alle 10 Sekunden
 setInterval(() => {
