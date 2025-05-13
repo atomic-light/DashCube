@@ -3,7 +3,7 @@
 Dash Cube is a fast-paced, minimalistic jump-and-run browser game where you control a glowing cube.  
 Jump over obstacles, collect coins, dash through the level, and survive as long as you can as the game speed increases over time! 🚀
 
-![Dash Cube Screenshot](preview.png)
+![Dash Cube Screenshot](images/preview.png)
 
 ---
 
