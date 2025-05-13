@@ -3,7 +3,6 @@ const obstacle = document.getElementById("obstacle");
 const coin = document.getElementById("coin");
 const scoreDisplay = document.getElementById("score");
 const highscoreDisplay = document.getElementById("highscore");
-const startText = document.getElementById("startText");
 const gameContainer = document.getElementById("game");
 
 // 🎵 Sounds
@@ -24,8 +23,8 @@ let rotation = 0;
 const playerX = 50; // Spieler bleibt links
 let gameSpeed = 2;
 
-let obstacleX = 600;
-let coinX = 600;
+obstacleX = gameContainer.clientWidth;
+coinX = gameContainer.clientWidth;
 let coinY = 120;
 
 let score = 0;
@@ -59,7 +58,7 @@ function moveObstacle() {
   obstacleX -= gameSpeed;
 
   if (obstacleX < -40) {
-    obstacleX = 600;
+    obstacleX = gameContainer.clientWidth;
     score++;
     scoreDisplay.textContent = score;
 
@@ -88,12 +87,25 @@ function moveCoin() {
 }
 
 function resetCoin() {
-  coinX = 600;
   const maxJumpHeight = 130;
   const coinMin = 60;
   const coinMax = coinMin + maxJumpHeight - 20;
-  coinY = Math.floor(Math.random() * (coinMax - coinMin)) + coinMin;
+
+  const buffer = 50; // Mindestabstand zum Hindernis
+
+  let validPosition = false;
+
+  while (!validPosition) {
+    coinX = gameContainer.clientWidth + Math.random() * 200; // Zufällige Position
+    coinY = Math.floor(Math.random() * (coinMax - coinMin)) + coinMin;
+
+    // Prüfen, ob der Coin nicht auf dem Hindernis liegt
+    if (Math.abs(coinX - obstacleX) > buffer) {
+      validPosition = true;
+    }
+  }
 }
+
 
 function checkCollision() {
   const playerBox = player.getBoundingClientRect();
@@ -160,7 +172,6 @@ document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     if (!gameStarted) {
       gameStarted = true;
-      startText.style.display = "none";
       update();
       return;
     }
