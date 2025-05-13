@@ -123,7 +123,15 @@ function checkCollision() {
     gameOverSound.currentTime = 0;
     gameOverSound.play();
     alert("💥 Game Over!\nDein Score: " + score);
+    reloadPageAfterGameOver();
   }
+}
+
+function reloadPageAfterGameOver()
+{
+  setTimeout(() => {
+    location.reload();
+  }, 1000);
 }
 
 function checkCoinCollision() {
