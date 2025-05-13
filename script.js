@@ -170,11 +170,25 @@ function createParticle(x, y) {
 // 🎮 Steuerung
 document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
+    handleJumpEvent();
+  }
+
+  document.getElementById("game").addEventListener("touchstart", (e) => {
+    e.preventDefault(); 
+      handleJumpEvent();
+  }, { passive: false }); 
+
+  document.getElementById("game").addEventListener("click", () => {
+    handleJumpEvent();
+  });
+
+  function handleJumpEvent()
+  {
     if (!gameStarted) {
-      gameStarted = true;
-      update();
-      return;
-    }
+          gameStarted = true;
+          update();
+          return;
+        }
 
     if (!isJumping && !gameOver) {
       velocityY = 10;
@@ -185,27 +199,6 @@ document.addEventListener("keydown", (e) => {
       player.style.transform = `rotateZ(${rotation}deg)`;
     }
   }
-
-  // Touchstart: Spieler springt bei touch
-  document.getElementById("game").addEventListener("touchstart", (e) => {
-    e.preventDefault(); // Verhindert das Scrollen oder Standardverhalten bei Touch
-    if (gameStarted) {
-      jump();
-    }
-  }, { passive: false }); // Passive false ist notwendig, um preventDefault zu nutzen
-
-  // Touchend: Verhindert, dass der Klick auch ausgelöst wird
-  document.getElementById("game").addEventListener("touchend", (e) => {
-    // Keine Aktion, nur zum Verhindern des `click`-Events
-    e.preventDefault();
-  }, { passive: false });
-
-  // Klick: Spieler springt bei Mausklick
-  document.getElementById("game").addEventListener("click", () => {
-    if (gameStarted) {
-      jump();
-    }
-  });
 
   // 💨 Dash (Welt wird schneller + Partikel nach links)
   if (e.code === "ShiftLeft" && !isDashing && gameStarted && !gameOver) {
