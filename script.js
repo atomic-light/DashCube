@@ -193,11 +193,11 @@ document.addEventListener("keydown", (e) => {
     }
   });
 
-  // For touch devices (mobile)
+  // Touchstart: Spieler springt bei touch
   document.getElementById("game").addEventListener("touchstart", (e) => {
+    e.preventDefault(); // Verhindert das Scrollen auf Touch-Geräten
     if (gameStarted) {
       jump();
-      e.preventDefault(); // Verhindert Scrollen bei Touch
     }
   });
 
