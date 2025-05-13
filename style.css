@@ -19,6 +19,7 @@ p {
   font-size: 1.2rem;
   text-align: center;
   text-shadow: 1px 1px 2px #000;
+  margin-bottom: 40px;
 }
 
 /* Der Spiel-Container */
