@@ -186,16 +186,22 @@ document.addEventListener("keydown", (e) => {
     }
   }
 
-  // For mouse click and touch input
-  document.getElementById("game").addEventListener("click", () => {
+  // Touchstart: Spieler springt bei touch
+  document.getElementById("game").addEventListener("touchstart", (e) => {
+    e.preventDefault(); // Verhindert das Scrollen oder Standardverhalten bei Touch
     if (gameStarted) {
       jump();
     }
-  });
+  }, { passive: false }); // Passive false ist notwendig, um preventDefault zu nutzen
 
-  // Touchstart: Spieler springt bei touch
-  document.getElementById("game").addEventListener("touchstart", (e) => {
-    e.preventDefault(); // Verhindert das Scrollen auf Touch-Geräten
+  // Touchend: Verhindert, dass der Klick auch ausgelöst wird
+  document.getElementById("game").addEventListener("touchend", (e) => {
+    // Keine Aktion, nur zum Verhindern des `click`-Events
+    e.preventDefault();
+  }, { passive: false });
+
+  // Klick: Spieler springt bei Mausklick
+  document.getElementById("game").addEventListener("click", () => {
     if (gameStarted) {
       jump();
     }
