@@ -168,36 +168,36 @@ function createParticle(x, y) {
 }
 
 // 🎮 Steuerung
+document.getElementById("game").addEventListener("touchstart", (e) => {
+  e.preventDefault(); 
+    handleJumpEvent();
+}, { passive: false }); 
+
+document.getElementById("game").addEventListener("click", () => {
+  handleJumpEvent();
+});
+
+function handleJumpEvent()
+{
+  if (!gameStarted) {
+        gameStarted = true;
+        update();
+        return;
+      }
+
+  if (!isJumping && !gameOver) {
+    velocityY = 10;
+    isJumping = true;
+    jumpSound.currentTime = 0;
+    jumpSound.play();
+    rotation += 90;
+    player.style.transform = `rotateZ(${rotation}deg)`;
+  }
+}
+
 document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     handleJumpEvent();
-  }
-
-  document.getElementById("game").addEventListener("touchstart", (e) => {
-    e.preventDefault(); 
-      handleJumpEvent();
-  }, { passive: false }); 
-
-  document.getElementById("game").addEventListener("click", () => {
-    handleJumpEvent();
-  });
-
-  function handleJumpEvent()
-  {
-    if (!gameStarted) {
-          gameStarted = true;
-          update();
-          return;
-        }
-
-    if (!isJumping && !gameOver) {
-      velocityY = 10;
-      isJumping = true;
-      jumpSound.currentTime = 0;
-      jumpSound.play();
-      rotation += 90;
-      player.style.transform = `rotateZ(${rotation}deg)`;
-    }
   }
 
   // 💨 Dash (Welt wird schneller + Partikel nach links)
