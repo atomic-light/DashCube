@@ -175,6 +175,21 @@ document.addEventListener("keydown", (e) => {
     }
   }
 
+  // For mouse click and touch input
+  document.getElementById("game").addEventListener("click", () => {
+    if (gameStarted) {
+      jump();
+    }
+  });
+
+  // For touch devices (mobile)
+  document.getElementById("game").addEventListener("touchstart", (e) => {
+    if (gameStarted) {
+      jump();
+      e.preventDefault(); // Verhindert Scrollen bei Touch
+    }
+  });
+
   // 💨 Dash (Welt wird schneller + Partikel nach links)
   if (e.code === "ShiftLeft" && !isDashing && gameStarted && !gameOver) {
     isDashing = true;
