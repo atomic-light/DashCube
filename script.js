@@ -170,7 +170,7 @@ function createParticle(x, y) {
 // 🎮 Steuerung
 let lastTap = 0;
 
-document.getElementById("game").addEventListener("touchstart", (e) => {
+document.addEventListener("touchstart", (e) => {
   e.preventDefault();
 
   const currentTime = new Date().getTime();
@@ -187,7 +187,7 @@ document.getElementById("game").addEventListener("touchstart", (e) => {
   lastTap = currentTime;
 }, { passive: false });
 
-document.getElementById("game").addEventListener("click", () => {
+document.addEventListener("click", () => {
   handleJumpEvent();
 });
 
